@@ -26,45 +26,46 @@ app.use(express.static('public'));
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 
-let counter = 0;
+let smallCounter = 0;
+let mediumCounter = 0;
+let largeCounter = 0;
+let grandTotal 
 
+// let smallT = 0
 app.get('/', function(req, res) {
-	res.render('index', {
-		counter
-	});
+
+	res.render('index') 
+		
 });
-let smallT = 0
-let grandT =0;
+
 app.post('/small', function(req, res) {
-var qty = ++counter;
-var smallpizza = req.body.name
-console.log(smallpizza)
-if(smallpizza === 'small' ){
-	smallT += 35.00
-	grandT+= 35.00
-
-}
-var price = 35.00 * qty
-	res.redirect('/')
+	var totalPrice = pizzaPerfect.totalPizza()
+	var smallQty = ++smallCounter;
+	var smallTotal = 35.00 * smallQty
+	var totalPrice = smallTotal
+	res.render('index', {smallQty, smallTotal, totalPrice})
 });
-
 app.post('/medium', function(req, res) {
-	var qty = ++counter;
-	var price = 65.00 * qty
-	res.render('index', {qty, price})
+	// console.log(req.body.mediumPizza)
+	// var medium = req.body.mediumPizza
+	var mediumQty = ++mediumCounter;
+	var mediumTotal = 65.00 * mediumQty
+	var totalPrice = mediumTotal
+	res.render('index', {mediumQty, mediumTotal,totalPrice})
 });
 
 app.post('/large', function(req, res) {
-	var qty = ++counter;
-	var price = 85.00 * qty
-	res.render('index', {qty, price})
+	var largeQty = ++largeCounter;
+	var largeTotal = 85.00 * largeQty
+	var totalPrice = largeTotal
+	res.render('index', {largeQty, largeTotal, totalPrice})
 });
 
-app.get('/small', function(req, res) {
-	var qty = ++counter;
-//	var price = 85.00 * qty
-	res.render('index', {smallTotal :smallT })
-});
+// app.get('/small', function(req, res) {
+// 	// var qty = ++counter;
+// 	// var price = 35.00 * qty
+// 	res.render('index', {smallTotal : smallT })
+// });
 
 app.post('/buy', function(req, res) {
 	
